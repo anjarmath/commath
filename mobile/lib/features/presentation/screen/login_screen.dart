@@ -60,6 +60,7 @@ class LoginScreen extends HookConsumerWidget {
                     ),
                     const AppPaddingSpacer(),
                     AppCustomButton(
+                      onPressed: () {},
                       color: AppColor.primary,
                       text: Text(
                         'Masuk',

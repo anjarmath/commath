@@ -12,6 +12,6 @@ func ExamRoute(r *fiber.App) {
 	examRepository := repository.NewExamRepository()
 	examController := controller.NewExamController(examRepository, companyRepository)
 	exam := r.Group("/exam")
-	exam.Post("/", examController.CreateExam).Use(middleware.AuthMiddleware(middleware.KAdminRole))
 	exam.Get("/", examController.GetExamByCompanyId)
+	exam.Post("/", examController.CreateExam).Use(middleware.AuthMiddleware(middleware.KAdminRole))
 }
