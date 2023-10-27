@@ -1,0 +1,78 @@
+name: commath
+description: A new Flutter project.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.1.2 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  
+  # Connectivity
+  http: ^1.1.0
+  connectivity_plus: ^4.0.1
+  cached_network_image: ^3.2.3
+
+  # Utility
+  intl: ^0.18.1
+  permission_handler: ^10.3.0
+  icons_launcher: ^2.1.3
+  freezed_annotation: ^2.2.0
+  json_annotation: ^4.8.1
+  fpdart: ^0.6.0
+  flutter_dotenv: ^5.1.0
+  flutter_secure_storage: ^8.0.0
+  package_info_plus: ^4.1.0
+
+  # Routing & State Management
+  go_router: ^7.0.2
+  flutter_hooks: ^0.20.1
+  hooks_riverpod: ^2.4.0
+  get_it: ^7.6.0
+
+  # Widget
+  flutter_svg: ^2.0.0
+  flutter_native_splash: ^2.2.19
+  heroicons: ^0.9.0
+  skeletonizer: ^0.7.0
+  flash: ^3.0.5+1
+  lottie: ^2.6.0
+
+  cupertino_icons: ^1.0.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  build_runner: ^2.3.3
+  freezed: ^2.3.4
+  json_serializable: ^6.6.2
+  flutter_lints: ^2.0.0
+
+flutter:
+
+  uses-material-design: true
+
+  assets:
+    - .env
+    - assets/font/
+    - assets/lottie/
+
+  fonts:
+    - family: Dela
+      fonts:
+        - asset: assets/font/dela/Dela-Gothic.ttf
+    - family: Outfit
+      fonts:
+        - asset: assets/font/outfit/Outfit-Regular.ttf
+        - asset: assets/font/outfit/Outfit-Light.ttf
+          weight: 300
+        - asset: assets/font/outfit/Outfit-Bold.ttf
+          weight: 700
+
+scripts:
+  build: flutter pub run build_runner build --delete-conflicting-outputs
+  watch: flutter pub run build_runner watch
+  build_splash: dart run flutter_native_splash:create --path=./flutter_native_splash.yaml
+  make_icon: dart run icons_launcher:create --path ./icons_launcher.yaml

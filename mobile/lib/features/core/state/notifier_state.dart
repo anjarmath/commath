@@ -1,0 +1,4 @@
+enum NotifierState {
+  initial,
+  loaded,
+}
