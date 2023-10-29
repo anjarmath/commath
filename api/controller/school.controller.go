@@ -139,7 +139,7 @@ func (sc *schoolController) CreateTopic(c *fiber.Ctx) error {
 }
 
 func (sc *schoolController) GetAllTopic(c *fiber.Ctx) error {
-	var topics []model.Classes
+	var topics []model.Topics
 
 	topicsRes, err := sc.schoolRepository.FindAll(&topics)
 	if err != nil {
