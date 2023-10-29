@@ -45,17 +45,6 @@ func (ac *authController) LoginUser(c *fiber.Ctx) error {
 		})
 	}
 
-	userUpdateToken := model.Users{
-		AccessToken: os.Getenv("API_SECRET_USER"),
-	}
-
-	user, err = ac.userRepository.UpdateUser((user.ID).String(), &userUpdateToken)
-	if err != nil {
-		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-			"message": err.Error(),
-		})
-	}
-
 	return c.Status(fiber.StatusOK).JSON(user)
 }
 
@@ -109,17 +98,6 @@ func (ac *authController) LoginCompany(c *fiber.Ctx) error {
 	if !match {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 			"message": "Password salah",
-		})
-	}
-
-	companyUpdateToken := model.Companies{
-		AccessToken: os.Getenv("API_SECRET_COMP"),
-	}
-
-	company, err = ac.companyRepository.Update((company.ID).String(), &companyUpdateToken)
-	if err != nil {
-		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-			"message": err.Error(),
 		})
 	}
 
