@@ -10,7 +10,7 @@ type answerRepository struct{}
 // FindByUserId implements AnswerRepository.
 func (answerRepository) FindByUserId(id string) ([]model.Answers, error) {
 	var answer []model.Answers
-	if err := dal.DB.Find(&answer, "user_id = ?", id).Error; err != nil {
+	if err := dal.DB.Preload("Exams").Find(&answer, "user_id = ?", id).Error; err != nil {
 		return nil, err
 	}
 	return answer, nil
