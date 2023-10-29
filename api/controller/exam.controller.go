@@ -36,14 +36,14 @@ func (ec *examController) CreateExam(c *fiber.Ctx) error {
 	exam, err := ec.examRepository.Create(&exam)
 	if err != nil {
 		return c.Status(fiber.ErrInternalServerError.Code).JSON(fiber.Map{
-			"message": err,
+			"message": err.Error(),
 		})
 	}
 
 	_, err = ec.companyRepository.Activate((exam.CompanyID).String())
 	if err != nil {
 		return c.Status(fiber.ErrInternalServerError.Code).JSON(fiber.Map{
-			"message": err,
+			"message": err.Error(),
 		})
 	}
 

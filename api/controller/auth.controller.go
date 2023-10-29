@@ -45,7 +45,16 @@ func (ac *authController) LoginUser(c *fiber.Ctx) error {
 		})
 	}
 
-	user.AccessToken = os.Getenv("API_SECRET_USER")
+	userUpdateToken := model.Users{
+		AccessToken: os.Getenv("API_SECRET_USER"),
+	}
+
+	user, err = ac.userRepository.UpdateUser((user.ID).String(), &userUpdateToken)
+	if err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"message": err.Error(),
+		})
+	}
 
 	return c.Status(fiber.StatusOK).JSON(user)
 }
@@ -103,7 +112,16 @@ func (ac *authController) LoginCompany(c *fiber.Ctx) error {
 		})
 	}
 
-	company.AccessToken = os.Getenv("API_SECRET_COMP")
+	companyUpdateToken := model.Companies{
+		AccessToken: os.Getenv("API_SECRET_COMP"),
+	}
+
+	company, err = ac.companyRepository.Update((company.ID).String(), &companyUpdateToken)
+	if err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"message": err.Error(),
+		})
+	}
 
 	return c.Status(fiber.StatusOK).JSON(company)
 }
@@ -141,7 +159,7 @@ func (ac *authController) SignUpUser(c *fiber.Ctx) error {
 	_, err = ac.userRepository.CreateUser(&user)
 	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-			"message": err,
+			"message": err.Error(),
 		})
 	}
 
@@ -186,7 +204,7 @@ func (ac *authController) SignUpCompany(c *fiber.Ctx) error {
 	_, err = ac.companyRepository.Create(&comp)
 	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-			"message": err,
+			"message": err.Error(),
 		})
 	}
 

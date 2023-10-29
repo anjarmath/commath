@@ -49,7 +49,7 @@ func (ac *answerController) MakeAnswer(c *fiber.Ctx) error {
 	answer, err = ac.answerRepository.Create(&answer)
 	if err != nil {
 		return c.Status(fiber.ErrInternalServerError.Code).JSON(fiber.Map{
-			"message": err,
+			"message": err.Error(),
 		})
 	}
 
@@ -62,7 +62,7 @@ func (ac *answerController) GetAllAnswer(c *fiber.Ctx) error {
 	answers, err := ac.answerRepository.FindByExamId(examId)
 	if err != nil {
 		return c.Status(fiber.ErrInternalServerError.Code).JSON(fiber.Map{
-			"message": err,
+			"message": err.Error(),
 		})
 	}
 
@@ -75,7 +75,7 @@ func (ac *answerController) GetAnswerByUser(c *fiber.Ctx) error {
 	answers, err := ac.answerRepository.FindByUserId(userId)
 	if err != nil {
 		return c.Status(fiber.ErrInternalServerError.Code).JSON(fiber.Map{
-			"message": err,
+			"message": err.Error(),
 		})
 	}
 
@@ -96,14 +96,14 @@ func (ac *answerController) GiveFeedback(c *fiber.Ctx) error {
 	newAnswers, err := ac.answerRepository.GiveFeedback(id, feedBackReq.Feedback)
 	if err != nil {
 		return c.Status(fiber.ErrInternalServerError.Code).JSON(fiber.Map{
-			"message": err,
+			"message": err.Error(),
 		})
 	}
 
 	_, err = ac.userRepository.AddUserStar((newAnswers.UserID).String())
 	if err != nil {
 		return c.Status(fiber.ErrInternalServerError.Code).JSON(fiber.Map{
-			"message": err,
+			"message": err.Error(),
 		})
 	}
 

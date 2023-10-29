@@ -32,7 +32,7 @@ func (sc *schoolController) CreateSchool(c *fiber.Ctx) error {
 	school, err := sc.schoolRepository.Add(school)
 	if err != nil {
 		return c.Status(fiber.ErrInternalServerError.Code).JSON(fiber.Map{
-			"message": err,
+			"message": err.Error(),
 		})
 	}
 
@@ -56,7 +56,7 @@ func (sc *schoolController) DeleteSchool(c *fiber.Ctx) error {
 	schoolId := c.Params("id")
 	if err := sc.schoolRepository.Delete(schoolId); err != nil {
 		return c.Status(fiber.ErrInternalServerError.Code).JSON(fiber.Map{
-			"message": err,
+			"message": err.Error(),
 		})
 	}
 
@@ -82,7 +82,7 @@ func (sc *schoolController) CreateClass(c *fiber.Ctx) error {
 	class, err := sc.schoolRepository.AddClass(class)
 	if err != nil {
 		return c.Status(fiber.ErrInternalServerError.Code).JSON(fiber.Map{
-			"message": err,
+			"message": err.Error(),
 		})
 	}
 
@@ -106,7 +106,7 @@ func (sc *schoolController) DeleteClass(c *fiber.Ctx) error {
 	classId := c.Params("id")
 	if err := sc.schoolRepository.DeleteClass(classId); err != nil {
 		return c.Status(fiber.ErrInternalServerError.Code).JSON(fiber.Map{
-			"message": err,
+			"message": err.Error(),
 		})
 	}
 
@@ -131,7 +131,7 @@ func (sc *schoolController) CreateTopic(c *fiber.Ctx) error {
 	topic, err := sc.schoolRepository.AddTopic(topic)
 	if err != nil {
 		return c.Status(fiber.ErrInternalServerError.Code).JSON(fiber.Map{
-			"message": err,
+			"message": err.Error(),
 		})
 	}
 
@@ -155,7 +155,7 @@ func (sc *schoolController) DeleteTopic(c *fiber.Ctx) error {
 	topicId := c.Params("id")
 	if err := sc.schoolRepository.DeleteTopic(topicId); err != nil {
 		return c.Status(fiber.ErrInternalServerError.Code).JSON(fiber.Map{
-			"message": err,
+			"message": err.Error(),
 		})
 	}
 

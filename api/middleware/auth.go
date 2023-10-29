@@ -32,7 +32,7 @@ func AuthMiddleware(minRole int) fiber.Handler {
 		reqRole, err := getRoleByToken(tokenString)
 		if err != nil {
 			return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
-				"message": err,
+				"message": err.Error(),
 			})
 		}
 
