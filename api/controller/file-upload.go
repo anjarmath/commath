@@ -6,6 +6,7 @@ import (
 	"path/filepath"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/google/uuid"
 )
 
 type fileController struct{}
@@ -23,7 +24,7 @@ func (fc *fileController) UploadImage(c *fiber.Ctx) error {
 	}
 
 	//Generate nama file baru
-	newFileName := fc.generateNewFilename("image", file.Filename)
+	newFileName := fc.generateNewFilename("image", uuid.NewString())
 
 	// Path penyimpanan file di server
 	uploadDir := os.Getenv("ASSETS_ROOT") + "/image"
