@@ -1,6 +1,8 @@
 package controller
 
 import (
+	"math/rand"
+
 	"github.com/anjarmath/jago/model"
 	"github.com/anjarmath/jago/repository"
 	"github.com/gofiber/fiber/v2"
@@ -53,7 +55,14 @@ func (ec *examController) CreateExam(c *fiber.Ctx) error {
 func (ec *examController) GetExamByCompanyId(c *fiber.Ctx) error {
 	companyId := c.Query("company_id")
 
-	exam, err := ec.examRepository.FindByCompanyId(companyId)
+	exams, err := ec.examRepository.FindByCompanyId(companyId)
+	if err != nil {
+		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{
+			"message": "Tidak ditemukan",
+		})
+	}
+
+	exam, err := ec.randomExam(exams)
 	if err != nil {
 		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{
 			"message": "Tidak ditemukan",
@@ -61,4 +70,12 @@ func (ec *examController) GetExamByCompanyId(c *fiber.Ctx) error {
 	}
 
 	return c.Status(fiber.StatusOK).JSON(exam)
+}
+
+func (ec *examController) randomExam(exams []model.Exams) (*model.Exams, error) {
+	if len(exams) == 0 {
+		return nil, fiber.NewError(0)
+	}
+	index := rand.Intn(len(exams))
+	return &exams[index], nil
 }
