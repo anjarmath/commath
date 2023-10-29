@@ -24,7 +24,7 @@ func (fc *fileController) UploadImage(c *fiber.Ctx) error {
 	}
 
 	//Generate nama file baru
-	newFileName := fc.generateNewFilename("image", uuid.NewString())
+	newFileName := fc.generateNewFilename(uuid.NewString(), file.Filename)
 
 	// Path penyimpanan file di server
 	uploadDir := os.Getenv("ASSETS_ROOT") + "/image"
