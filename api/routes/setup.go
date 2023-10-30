@@ -18,4 +18,5 @@ func Setup(r *fiber.App) {
 	CompanyRoute(r)
 	SchoolRoute(r)
 	ExamRoute(r)
+	AnswerRoute(r)
 }
