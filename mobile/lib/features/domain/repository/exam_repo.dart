@@ -7,7 +7,7 @@ import 'package:commath/features/domain/entity/topic_entity.dart';
 abstract class ExamRepository {
   DataState<List<TopicEntity>> getAllTopic();
   DataState<List<CompanyEntity>> getAllCompany();
-  DataState<List<ExamEntity>> getCompanyExam(String companyId);
+  DataState<ExamEntity> getCompanyExam(String companyId);
   DataState<List<AnswerEntity>> getAllUserAnswer();
   DataState<bool> submitAnswer({
     required String examId,

@@ -22,7 +22,7 @@ class UserDataNotifier extends ChangeNotifier {
   final BuildContext context;
   Timer? _timer;
   UserDataNotifier(this.context) : super() {
-    _timer = Timer.periodic(const Duration(seconds: 15), (_) => initUser());
+    _timer = Timer.periodic(const Duration(seconds: 30), (_) => initUser());
     initUser();
   }
 

@@ -10,7 +10,6 @@ import 'package:commath/features/data/model/user_model.dart';
 import 'package:commath/features/data/sources/api_data_source.dart';
 import 'package:commath/features/data/sources/middleware.dart';
 import 'package:commath/features/data/sources/secure_storage.dart';
-import 'package:commath/features/domain/entity/user_entity.dart';
 import 'package:commath/features/domain/repository/auth_repo.dart';
 import 'package:fpdart/fpdart.dart';
 
@@ -59,46 +58,40 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  DataState<UserEntity> getAndUpdateUser() async {
-    try {
-      final userFromStorage = await _secureStorage.getFromStorage('user');
-      final user = UserModel.fromJson(jsonDecode(userFromStorage));
-      final id = user.id;
-      final res = await _middleware.execute(
-        (token, userId) => _apiDataSource.sendGet(
-          path: 'user/$id',
-          connectionType: ConnectionType.private,
-          token: token,
-          userId: userId,
-        ),
-      );
+  DataState<UserModel> getAndUpdateUser() async {
+    final userFromStorage = await _secureStorage.getFromStorage('user');
+    final user = UserModel.fromJson(jsonDecode(userFromStorage));
+    final id = user.id;
+    final res = await _middleware.execute(
+      (token, userId) => _apiDataSource.sendGet(
+        path: 'user/$id',
+        connectionType: ConnectionType.private,
+        token: token,
+        userId: userId,
+      ),
+    );
 
-      return res.fold(
-        (l) {
-          return left(l);
-        },
-        (r) {
-          if (r.statusCode != 200) {
-            return left(Failure(
-              statusCode: r.statusCode,
-              message: r.data["message"],
-            ));
-          } else {
-            _secureStorage.deleteFromStorage('user');
-            _secureStorage.saveToStorage('user', jsonEncode(r.data));
-            return right(UserModel.fromJson(r.data));
-          }
-        },
-      );
-    } catch (_) {
-      return left(Failure(
-          statusCode: SystemFailureStatusCode.authError,
-          message: 'Sesi berakhir'));
-    }
+    return res.fold(
+      (l) {
+        return left(l);
+      },
+      (r) {
+        if (r.statusCode != 200) {
+          return left(Failure(
+            statusCode: r.statusCode,
+            message: r.data["message"].toString(),
+          ));
+        } else {
+          _secureStorage.deleteFromStorage('user');
+          _secureStorage.saveToStorage('user', jsonEncode(r.data));
+          return right(UserModel.fromJson(r.data));
+        }
+      },
+    );
   }
 
   @override
-  DataState<UserEntity> getUser() async {
+  DataState<UserModel> getUser() async {
     try {
       final user = await _secureStorage.getFromStorage('user');
       return right(UserModel.fromJson(user));

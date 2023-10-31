@@ -23,6 +23,7 @@ mixin _$AnswerModel {
   String get id => throw _privateConstructorUsedError;
   String get user_id => throw _privateConstructorUsedError;
   String get exam_id => throw _privateConstructorUsedError;
+  ExamModel get exam => throw _privateConstructorUsedError;
   String get diketahui => throw _privateConstructorUsedError;
   String get ditanya => throw _privateConstructorUsedError;
   String get jawab => throw _privateConstructorUsedError;
@@ -46,12 +47,15 @@ abstract class $AnswerModelCopyWith<$Res> {
       {String id,
       String user_id,
       String exam_id,
+      ExamModel exam,
       String diketahui,
       String ditanya,
       String jawab,
       String kesimpulan,
       String? feedback,
       String created_at});
+
+  $ExamModelCopyWith<$Res> get exam;
 }
 
 /// @nodoc
@@ -70,6 +74,7 @@ class _$AnswerModelCopyWithImpl<$Res, $Val extends AnswerModel>
     Object? id = null,
     Object? user_id = null,
     Object? exam_id = null,
+    Object? exam = null,
     Object? diketahui = null,
     Object? ditanya = null,
     Object? jawab = null,
@@ -90,6 +95,10 @@ class _$AnswerModelCopyWithImpl<$Res, $Val extends AnswerModel>
           ? _value.exam_id
           : exam_id // ignore: cast_nullable_to_non_nullable
               as String,
+      exam: null == exam
+          ? _value.exam
+          : exam // ignore: cast_nullable_to_non_nullable
+              as ExamModel,
       diketahui: null == diketahui
           ? _value.diketahui
           : diketahui // ignore: cast_nullable_to_non_nullable
@@ -116,6 +125,14 @@ class _$AnswerModelCopyWithImpl<$Res, $Val extends AnswerModel>
               as String,
     ) as $Val);
   }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ExamModelCopyWith<$Res> get exam {
+    return $ExamModelCopyWith<$Res>(_value.exam, (value) {
+      return _then(_value.copyWith(exam: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -130,12 +147,16 @@ abstract class _$$AnswerModelImplCopyWith<$Res>
       {String id,
       String user_id,
       String exam_id,
+      ExamModel exam,
       String diketahui,
       String ditanya,
       String jawab,
       String kesimpulan,
       String? feedback,
       String created_at});
+
+  @override
+  $ExamModelCopyWith<$Res> get exam;
 }
 
 /// @nodoc
@@ -152,6 +173,7 @@ class __$$AnswerModelImplCopyWithImpl<$Res>
     Object? id = null,
     Object? user_id = null,
     Object? exam_id = null,
+    Object? exam = null,
     Object? diketahui = null,
     Object? ditanya = null,
     Object? jawab = null,
@@ -172,6 +194,10 @@ class __$$AnswerModelImplCopyWithImpl<$Res>
           ? _value.exam_id
           : exam_id // ignore: cast_nullable_to_non_nullable
               as String,
+      exam: null == exam
+          ? _value.exam
+          : exam // ignore: cast_nullable_to_non_nullable
+              as ExamModel,
       diketahui: null == diketahui
           ? _value.diketahui
           : diketahui // ignore: cast_nullable_to_non_nullable
@@ -207,6 +233,7 @@ class _$AnswerModelImpl implements _AnswerModel {
       {required this.id,
       required this.user_id,
       required this.exam_id,
+      required this.exam,
       required this.diketahui,
       required this.ditanya,
       required this.jawab,
@@ -224,6 +251,8 @@ class _$AnswerModelImpl implements _AnswerModel {
   @override
   final String exam_id;
   @override
+  final ExamModel exam;
+  @override
   final String diketahui;
   @override
   final String ditanya;
@@ -238,7 +267,7 @@ class _$AnswerModelImpl implements _AnswerModel {
 
   @override
   String toString() {
-    return 'AnswerModel(id: $id, user_id: $user_id, exam_id: $exam_id, diketahui: $diketahui, ditanya: $ditanya, jawab: $jawab, kesimpulan: $kesimpulan, feedback: $feedback, created_at: $created_at)';
+    return 'AnswerModel(id: $id, user_id: $user_id, exam_id: $exam_id, exam: $exam, diketahui: $diketahui, ditanya: $ditanya, jawab: $jawab, kesimpulan: $kesimpulan, feedback: $feedback, created_at: $created_at)';
   }
 
   @override
@@ -249,6 +278,7 @@ class _$AnswerModelImpl implements _AnswerModel {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.user_id, user_id) || other.user_id == user_id) &&
             (identical(other.exam_id, exam_id) || other.exam_id == exam_id) &&
+            (identical(other.exam, exam) || other.exam == exam) &&
             (identical(other.diketahui, diketahui) ||
                 other.diketahui == diketahui) &&
             (identical(other.ditanya, ditanya) || other.ditanya == ditanya) &&
@@ -263,8 +293,8 @@ class _$AnswerModelImpl implements _AnswerModel {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, user_id, exam_id, diketahui,
-      ditanya, jawab, kesimpulan, feedback, created_at);
+  int get hashCode => Object.hash(runtimeType, id, user_id, exam_id, exam,
+      diketahui, ditanya, jawab, kesimpulan, feedback, created_at);
 
   @JsonKey(ignore: true)
   @override
@@ -285,6 +315,7 @@ abstract class _AnswerModel implements AnswerModel {
       {required final String id,
       required final String user_id,
       required final String exam_id,
+      required final ExamModel exam,
       required final String diketahui,
       required final String ditanya,
       required final String jawab,
@@ -301,6 +332,8 @@ abstract class _AnswerModel implements AnswerModel {
   String get user_id;
   @override
   String get exam_id;
+  @override
+  ExamModel get exam;
   @override
   String get diketahui;
   @override

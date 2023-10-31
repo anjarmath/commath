@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:commath/features/core/external/env.dart';
 import 'package:commath/features/core/state/api_response.dart';
 import 'package:commath/features/core/state/data_state.dart';
 import 'package:commath/features/data/model/user_model.dart';
@@ -32,7 +33,7 @@ class MiddlewareImpl implements Middleware {
     final userFromStorage = await _secureStorage.getFromStorage('user');
     final user = UserModel.fromJson(jsonDecode(userFromStorage));
 
-    final apiResult = await apiCall(user.access_token, user.id);
+    final apiResult = await apiCall(EnvironmentConfig.apiSecret, user.id);
 
     return apiResult;
   }

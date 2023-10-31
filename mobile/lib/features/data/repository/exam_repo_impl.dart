@@ -83,24 +83,16 @@ class ExamRepositoryImpl implements ExamRepository {
   }
 
   @override
-  DataState<List<ExamModel>> getCompanyExam(String companyId) async {
+  DataState<ExamModel> getCompanyExam(String companyId) async {
     final params = {
       "company_id": companyId,
     };
     final res = await _apiDataSource.sendGet(
-      path: 'answer/user',
+      path: 'exam',
       connectionType: ConnectionType.public,
       params: params,
     );
-    return res.fold(
-      (l) => left(l),
-      (r) {
-        List<dynamic> data = r.data;
-        List<ExamModel> resList =
-            data.map((json) => ExamModel.fromJson(json)).toList();
-        return right(resList);
-      },
-    );
+    return res.fold((l) => left(l), (r) => right(ExamModel.fromJson(r.data)));
   }
 
   @override
@@ -119,7 +111,7 @@ class ExamRepositoryImpl implements ExamRepository {
     });
     final res = await _middleware.execute(
       (token, userId) => _apiDataSource.sendPost(
-        path: 'exam',
+        path: 'answer',
         body: body,
         connectionType: ConnectionType.private,
         token: token,
